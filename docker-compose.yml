@@ -2,7 +2,7 @@
 version: '2.2'
 services:
   zookeeper:
-    container_name: workship-zookeeper
+    container_name: bawag-zookeeper
     image: confluentinc/cp-zookeeper:5.4.0
     cpus: 0.5
     environment:
@@ -10,7 +10,7 @@ services:
       ZOOKEEPER_TICK_TIME: 2000
 
   kafka:
-    container_name: workship-kafka
+    container_name: bawag-kafka
     image: confluentinc/cp-enterprise-kafka:5.4.0
     depends_on:
       - zookeeper
@@ -50,7 +50,7 @@ services:
 
   schema-registry:
     image: confluentinc/cp-schema-registry:5.4.0
-    container_name: workship-schema-registry
+    container_name: bawag-schema-registry
     cpus: 0.4
     ports:
       - 8081:8081
@@ -67,7 +67,7 @@ services:
 
   connect-ext:
     image: confluentinc/cp-kafka-connect:5.4.0
-    container_name: workship-connect-ext
+    container_name: bawag-connect-ext
     depends_on:
       - zookeeper
       - kafka
@@ -131,7 +131,7 @@ services:
 
   ksql-server:
     image: confluentinc/cp-ksql-server:5.4.0
-    container_name: workship-ksql-server
+    container_name: bawag-ksql-server
     depends_on:
       - kafka
       - schema-registry
@@ -143,7 +143,7 @@ services:
       KSQL_BOOTSTRAP_SERVERS: kafka:29092
       KSQL_LISTENERS: http://0.0.0.0:8088
       KSQL_KSQL_SCHEMA_REGISTRY_URL: http://schema-registry:8081
-      KSQL_KSQL_SERVICE_ID: workship_
+      KSQL_KSQL_SERVICE_ID: bawag_
       KSQL_KSQL_CONNECT_URL: http://connect-ext:8083
       # uncomment this one to launch a Connect worker INSIDE the KSQL JVM
       # KSQL_KSQL_CONNECT_WORKER_CONFIG: /etc/ksql/worker.properties
@@ -164,7 +164,7 @@ services:
     # To connect to the KSQL CLI: 
     #   docker exec -it ksql-cli ksql http://ksql-server:8088
     # *-----------------------------*
-    container_name: workship-ksql-cli
+    container_name: bawag-ksql-cli
     image: confluentinc/cp-ksql-cli:5.4.0
     cpus: 0.8
     depends_on:
@@ -176,7 +176,7 @@ services:
   control-center:
     image: confluentinc/cp-enterprise-control-center:5.4.0
     hostname: control-center
-    container_name: workship-control-center
+    container_name: bawag-control-center
     depends_on:
       - zookeeper
       - kafka
