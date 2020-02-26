@@ -94,6 +94,7 @@ services:
       CONNECT_PLUGIN_PATH: '/usr/share/java,/usr/share/confluent-hub-components,/local-connect-jars'
       CONNECT_PRODUCER_INTERCEPTOR_CLASSES: "io.confluent.monitoring.clients.interceptor.MonitoringProducerInterceptor"
       CONNECT_CONSUMER_INTERCEPTOR_CLASSES: "io.confluent.monitoring.clients.interceptor.MonitoringConsumerInterceptor"
+
     volumes:
       - ./confluent-hub-components:/local-connect-jars
       - ./data:/data
@@ -117,25 +118,21 @@ services:
         done
         #
         echo "Creating CSV connector"
-        curl -s -X PUT -H  "Content-Type:application/json" http://localhost:8083/connectors/source-odl-movements/config \
-            -d '{
-            "tasks.max": "1",
-            "connector.class": "com.github.jcustenborder.kafka.connect.spooldir.SpoolDirCsvSourceConnector",
-            "input.path": "/data/in",
-            "input.file.pattern": "ODL_MOVEMENTS_CONFLUENT_POC-2018-12-01-sample1000.csv",
-            "error.path": "/data/error",
-            "finished.path": "/data/processed",
-            "halt.on.error": "false",
-            "cleanup.policy": "NONE",
-            "key.converter": "org.apache.kafka.connect.storage.StringConverter",
-            "value.converter": "io.confluent.connect.avro.AvroConverter",
-            "value.schema": "{\"namespace\": \"odl_movements.avro\",\n \"type\": \"record\",\n \"name\": \"Movement\",\n \"fields\": [\n {\"name\": \"DATUM\", \"type\": \"int\", \"logicalType\" : \"date\"},\n {\"name\": \"IBAN\", \"type\": \"string\"},\n {\"name\": \"DAT_ACCT\", \"type\": \"int\", \"logicalType\": \"date\"},\n {\"name\": \"NUM_OPERATION\", \"type\": \"string\"},\n {\"name\": \"NUM_TRANSACTION\", \"type\": \"string\"},\n {\"name\": \"MOVEMENT_TYPE\", \"type\": \"string\"},\n {\"name\": \"ACCOUNT_NUMBER\", \"type\": \"string\"},\n {\"name\": \"BANK_CODE\", \"type\": \"string\"},\n {\"name\": \"VALUE_DATE\", \"type\": \"int\", \"logicalType\": \"date\"},\n {\"name\": \"BOOKING_TEXT\", \"type\": [\"null\", \"string\"]},\n {\"name\": \"USAGE\", \"type\": [\"null\", \"string\"]},\n {\"name\": \"ACCOUNT_STATEMENT_DATE\", \"type\": [\"null\", \"int\"], \"logicalType\" : \"date\"},\n {\"name\": \"ACCOUNT_STATEMENT_NUMBER\", \"type\": [\"null\", \"string\"]},\n {\"name\": \"AMOUNT\", \"type\": [\"null\", \"bytes\"], \"logicalType\" : \"decimal\", \"precision\" : 20, \"scale\" : 2 },\n {\"name\": \"CURRENCY\", \"type\": [\"null\", \"string\"]},\n {\"name\": \"GVC_CODE\", \"type\": [\"null\", \"string\"]},\n {\"name\": \"SUPPLEMENT_REFERENCE\", \"type\": [\"null\", \"string\"]},\n {\"name\": \"IMAGE_REFERENCE\", \"type\": [\"null\", \"string\"]},\n {\"name\": \"INSTITUTE_REFERENCE\", \"type\": [\"null\", \"string\"]},\n {\"name\": \"CUSTOMER_DATA\", \"type\": [\"null\", \"string\"]},\n {\"name\": \"COUNTER_ACCOUNT_WORDING\", \"type\": [\"null\", \"string\"]},\n {\"name\": \"COUNTER_IBAN\", \"type\": [\"null\", \"string\"]},\n {\"name\": \"COUNTER_BIC\", \"type\": [\"null\", \"string\"]},\n {\"name\": \"COUNTER_ACCOUNT_NUMBER\", \"type\": [\"null\", \"string\"]},\n {\"name\": \"COUNTER_BANK_CODE\", \"type\": [\"null\", \"string\"]},\n {\"name\": \"LAST_MODIFIED\", \"type\": [\"null\", \"long\"], \"logicalType\" : \"timestamp-millis\"},\n {\"name\": \"TEXT_CODE\", \"type\": [\"null\", \"string\"]},\n {\"name\": \"ORIGINAL_BALANCE\", \"type\": [\"null\", \"bytes\"], \"logicalType\" : \"decimal\", \"precision\" : 20, \"scale\" : 2 },\n {\"name\": \"CHANNEL\", \"type\": [\"null\", \"string\"]},\n {\"name\": \"ADDITIONAL_INFO\", \"type\": [\"null\", \"string\"]},\n {\"name\": \"CATEGORY_NAME\", \"type\": [\"null\", \"string\"]},\n {\"name\": \"PARENT_CATEGORY_NAME\", \"type\": [\"null\", \"string\"]},\n {\"name\": \"CUSTOMER_CATEGORY_NAME\", \"type\": [\"null\", \"string\"]},\n {\"name\": \"RISK_CATEGORY\", \"type\": [\"null\", \"string\"]}\n ]\n }\n",
-            "kafka.topic": "ODL_MOVEMENTS",
-            "csv.first.row.as.header": "false",
-            "schema.generation.enabled": "false",
-            "schema.filename": "/data/odl_movements.asvc",
-            "schema.keyfield": "IBAN"
-          }'
+#        curl -s -X PUT -H  "Content-Type:application/json" http://localhost:8083/connectors/source-odl-movements/config \
+#            -d '{
+#            "tasks.max": "1",
+#            "connector.class": "com.github.jcustenborder.kafka.connect.spooldir.SpoolDirLineDelimitedSourceConnector",
+#            "input.path": "/data/in",
+#            "input.file.pattern": "ODL_MOVEMENTS_CONFLUENT_POC-2018-12-01-sample1000.csv",
+#            "error.path": "/data/error",
+#            "finished.path": "/data/processed",
+#            "halt.on.error": "false",
+#            "cleanup.policy": "MOVE",
+#            "key.converter": "org.apache.kafka.connect.storage.StringConverter",
+#            "value.converter": "org.apache.kafka.connect.storage.StringConverter",
+#            "topic": "ODL_MOVEMENTS",
+#            "batch.size": "50"
+#          }'
         # Don't let the container die
         sleep infinity
 
