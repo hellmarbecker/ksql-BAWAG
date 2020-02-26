@@ -117,22 +117,22 @@ services:
           sleep 5 
         done
         #
-        echo "Creating CSV connector"
-#        curl -s -X PUT -H  "Content-Type:application/json" http://localhost:8083/connectors/source-odl-movements/config \
-#            -d '{
-#            "tasks.max": "1",
-#            "connector.class": "com.github.jcustenborder.kafka.connect.spooldir.SpoolDirLineDelimitedSourceConnector",
-#            "input.path": "/data/in",
-#            "input.file.pattern": "ODL_MOVEMENTS_CONFLUENT_POC-2018-12-01-sample1000.csv",
-#            "error.path": "/data/error",
-#            "finished.path": "/data/processed",
-#            "halt.on.error": "false",
-#            "cleanup.policy": "MOVE",
-#            "key.converter": "org.apache.kafka.connect.storage.StringConverter",
-#            "value.converter": "org.apache.kafka.connect.storage.StringConverter",
-#            "topic": "ODL_MOVEMENTS",
-#            "batch.size": "50"
-#          }'
+        #        echo "Creating CSV connector"
+        #        curl -s -X PUT -H  "Content-Type:application/json" http://localhost:8083/connectors/source-odl-movements/config \
+        #            -d '{
+        #            "tasks.max": "1",
+        #            "connector.class": "com.github.jcustenborder.kafka.connect.spooldir.SpoolDirLineDelimitedSourceConnector",
+        #            "input.path": "/data/in",
+        #            "input.file.pattern": "ODL_MOVEMENTS_CONFLUENT_POC-2018-12-01-sample1000.csv",
+        #            "error.path": "/data/error",
+        #            "finished.path": "/data/processed",
+        #            "halt.on.error": "false",
+        #            "cleanup.policy": "MOVE",
+        #            "key.converter": "org.apache.kafka.connect.storage.StringConverter",
+        #            "value.converter": "org.apache.kafka.connect.storage.StringConverter",
+        #            "topic": "ODL_MOVEMENTS",
+        #            "batch.size": "50"
+        #          }'
         # Don't let the container die
         sleep infinity
 
