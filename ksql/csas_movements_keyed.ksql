@@ -1,0 +1,15 @@
+CREATE STREAM odl_movements_keyed
+WITH (
+    TIMESTAMP='DATUM',
+    TIMESTAMP_FORMAT='yyyy-MM-dd HH:mm:ss.SSS Z',
+    VALUE_FORMAT='AVRO'
+) 
+AS 
+SELECT
+    *
+FROM
+    odl_movements_raw
+EMIT CHANGES
+PARTITION BY
+    IBAN;
+
