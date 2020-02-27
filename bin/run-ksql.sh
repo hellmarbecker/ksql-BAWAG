@@ -1,3 +1,3 @@
 #!/bin/bash
-docker exec -it ksql-cli ksql http://ksql-server:8088
+docker exec -it bawag-ksql-cli ksql http://ksql-server:8088
 
