@@ -132,11 +132,6 @@ services:
         #            "csv.first.row.as.header": "false",
         #            "topic": "ODL_MOVEMENTS",
         #            "batch.size": "50",
-        #            "transforms":"createKey,extractInt",
-        #            "transforms.createKey.type":"org.apache.kafka.connect.transforms.ValueToKey",
-        #            "transforms.createKey.fields":"IBAN",
-        #            "transforms.extractInt.type":"org.apache.kafka.connect.transforms.ExtractField\$Key",
-        #            "transforms.extractInt.field":"IBAN"
         #          }'
         # Don't let the container die
         sleep infinity
