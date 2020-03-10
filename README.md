@@ -83,7 +83,7 @@ GUI at localhost:9021
 
 Note how this not only enforces structure but also creates a message key that can be used for lookups and aggregations. Also note the familiar SQL syntax.
 
-### 6. In a real time app, there are two fundamental abstractions: Streams and Tables. Streams model change, and Tables model state. A Table shows the last known state of an item. Let us create a table with all the amounts and target accounts of transactions, per account per week.
+### 6. In a real time app, there are two fundamental abstractions: Streams and Tables. Streams model change, and Tables model state. A Table shows the last known state of an item. Let us create a table with all the amounts and target accounts of transactions, per account per month.
 
     CREATE TABLE odl_movements_iban_monthly
     AS
@@ -99,7 +99,7 @@ Here you see a few specifics about real time stream programming flowing into KSQ
 
 Note how we collect several transactions into a bucket in order to retrieve them with a point query later.
 
-### 7. Use a point query to retrieve one customer’s last transactions over a week.
+### 7. Use a point query to retrieve one customer’s last transactions over a month.
 
     select * from odl_movements_iban_qtr where rowkey='d871fa21e640eba52a03399421a504b4';
 
