@@ -8,7 +8,9 @@ Transaction caching using ksqlDB, based on Confluent Docker images.
 
     docker-compose up -d
 
-### 2. Populate the first topic. This is done using a script but also show the connect possibilities here.
+### 2. Populate the first topic. 
+
+This is done using a script (but do also show the connect possibilities here.)
 
     cd bin
     ./produce.sh
