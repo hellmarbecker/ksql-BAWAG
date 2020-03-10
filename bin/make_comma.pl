@@ -4,7 +4,7 @@ use strict;
 use warnings;
 
 use Text::CSV;
-my $csv_in = Text::CSV->new({ sep_char => ';' });
+my $csv_in = Text::CSV->new({ sep_char => ';', binary => 1 });
 my $csv_out = Text::CSV->new({ sep_char => ',' });
 
 # read input file
@@ -14,6 +14,7 @@ while (my $line = <>) {
 
         my @f = $csv_in->fields();
         $csv_out->print(\*STDOUT, \@f);
+        print "\n";
 
     } else {
 
