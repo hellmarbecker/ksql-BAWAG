@@ -1,0 +1,9 @@
+CREATE TABLE odl_movements_iban_monthly
+AS
+SELECT
+    COLLECT_LIST(amount) AS amounts,
+    COLLECT_LIST(counter_iban) AS counter_ibans
+FROM odl_movements_keyed
+WINDOW TUMBLING (SIZE 30 DAYS)
+GROUP BY iban
+EMIT CHANGES;
