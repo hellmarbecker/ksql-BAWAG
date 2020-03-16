@@ -89,6 +89,10 @@ Now we want to have a more structured view of the data.
 
 Note how this not only enforces structure but also creates a message key that can be used for lookups and aggregations. Also note the familiar SQL syntax.
 
+Look into the data in C3:
+
+    SELECT DATUM, IBAN, COUNTER_IBAN, AMOUNT FROM ODL_MOVEMENTS_KEYED EMIT CHANGES;
+
 ### 6. In a real time app, there are two fundamental abstractions: Streams and Tables. Streams model change, and Tables model state. A Table shows the last known state of an item. Let us create a table with all the amounts and target accounts of transactions, per account per month.
 
     CREATE TABLE odl_movements_iban_monthly
