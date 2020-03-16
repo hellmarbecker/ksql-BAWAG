@@ -111,7 +111,8 @@ Note how we collect several transactions into a bucket in order to retrieve them
 
 ### 7. Use a point query to retrieve one customer’s last transactions over a month.
 
-    select * from odl_movements_iban_monthly where rowkey='d871fa21e640eba52a03399421a504b4';
+    select * from odl_movements_iban_monthly
+    where rowkey='d871fa21e640eba52a03399421a504b4';
     
 This is the type of query that the online banking app will eventually send to the REST API. It retrieves this customer's transactions over a month.
 
@@ -119,5 +120,6 @@ This is the type of query that the online banking app will eventually send to th
 
     docker exec -it bawag-ksql-cli ksql http://ksql-server:8088
 
-    select * from odl_movements_iban_qtr where rowkey='d871fa21e640eba52a03399421a504b4';
+    select * from odl_movements_iban_monthly
+    where rowkey='d871fa21e640eba52a03399421a504b4';
 
