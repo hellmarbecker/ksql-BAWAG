@@ -17,9 +17,15 @@ This is done using a script (but do also show the connect possibilities here.)
 
 ### 3. Go to GUI. Show the cluster health overview, the topic overview. Go into topic and show unstructured data.
 
-GUI at localhost:9021
+GUI at `localhost:9021`. Go to KSQL and show the raw topic:
+
+    PRINT 'ODL_MOVEMENTS_RAW' FROM BEGINNING;
+    
+In KSQL, set the query property `auto.offset.reset` to `earliest`.
 
 ### 4. Create a STREAM on top of the Kafka topic. This is an abstraction in order to work with the data in real time apps.
+
+Now we want to have a more structured view of the data.
 
     CREATE STREAM odl_movements_raw (
         DATUM VARCHAR,
@@ -102,6 +108,8 @@ Note how we collect several transactions into a bucket in order to retrieve them
 ### 7. Use a point query to retrieve one customer’s last transactions over a month.
 
     select * from odl_movements_iban_qtr where rowkey='d871fa21e640eba52a03399421a504b4';
+    
+This is the type of query that the online banking app will eventually send to the REST API. It retrieves this customer's transactions over a month.
 
 ### 8. Queries can also be executed via REST API or via CLI. The CLI shows the result in better detail.
 
