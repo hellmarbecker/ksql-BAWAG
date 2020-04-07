@@ -14,9 +14,30 @@ sub makeIBAN {
     $blz =~ /^\d{8}$/ or die "BLZ has to be 8 digits";
     $acct =~ /^\d{1,10}$/ or die "Account number has to be numeric";
 
-    my $result1 = sprintf( "DE00%08d%010d", $blz, $acct );
+    # 1. Concatenate BLZ and account number into BBAN
+    my $bban = sprintf( "%08d%010d", $blz, $acct );
 
-    $result1;
+    # 2. Create IBAN without check digit
+    my $prefix = "DE00";
+    my @prefix = split( //, $prefix );
+
+    # 3. Translate letters into decimal numbers, starting at 10 for 'A'.
+    # Append this at the end of BBAN
+    my $sum = $bban;
+    for (@prefix) {
+        if (/[A-Z]/) {
+	    $sum .= 10 + ord( $_ ) - ord( 'A' );
+        } else {
+            $sum .= $_;
+        }
+    }
+ 
+    # 4. Take result mod 97, subtract from 98
+    my $chksum = sprintf( "%02d", 98 - $sum % 97 );
+    $prefix =~ s/00/$chksum/;
+
+    return $prefix . $bban;
+    
 } # makeIBAN
 
 
