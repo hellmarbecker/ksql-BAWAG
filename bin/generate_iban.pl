@@ -6,6 +6,7 @@ use warnings;
 #---------------------------------------
 # makeIBAN
 #---------------------------------------
+# see https://www.ibantest.com/en/how-is-the-iban-check-digit-calculated
 sub makeIBAN {
     my ( $blz, $acct ) = @_;
 
