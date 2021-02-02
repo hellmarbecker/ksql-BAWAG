@@ -1,4 +1,4 @@
-# ksql-BAWAG
+# KSQL Transaction Cache
 
 Transaction caching using ksqlDB, based on Confluent Docker images.
 
